@@ -29,6 +29,16 @@ const prepareCB = (name, error) => {
     }
 };
 
+// const returnCB = (command, response, error, rows) => {
+//     if (error) {
+//         response.status(500).send("Error: ", error);
+//     } else if (rows) {
+//         response.send(rows);
+//     } else {
+
+//     }
+// }
+
 app.get('/api/entries', (request, response) => {
     console.log("/entries");
     db.all("SELECT * FROM entry", (error, rows) => {
@@ -75,6 +85,22 @@ app.delete('/api/delete_entry/:id', (request, response) => {
             }));
         }
     })
+});
+
+app.patch('/api/update_entry/:id', (request, response) => {
+    console.log("SERVER: /update_entry with id:", request.params.id);
+    db.prepare("UPDATE entry SET title=?, content=? WHERE id=?", 
+        [request.body.title, request.body.content, request.body.id], prepareCB)
+    .run([], (error, row) => {
+        if (error) {
+            console.log("Error running /update_entry: ", error);
+            response.status(500).send("Error: ", error);
+        } else {
+            response.send(JSON.stringify({
+                status: "success",
+            }));
+        }
+    });
 });
 
 app.listen(port, () => console.log("Listening in port ", port));

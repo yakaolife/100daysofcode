@@ -17,11 +17,12 @@ const newEntry = (entry) => {
 }
 
 const updateEntry = (entry) => {
-    return fetch("/api/update_entry", {
+    return fetch(`/api/update_entry/${entry.id}`, {
         method: "PATCH",
         body: JSON.stringify(entry),
         headers: {
-            "content-type" : "application/json"
+            "content-type" : "application/json",
+            "Accept" : "application/json",
         }
     });
 }
