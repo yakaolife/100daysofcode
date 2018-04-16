@@ -1,9 +1,9 @@
 import React from 'react';
 import List from './List';
-import Entry from './Entry';
+import EntryForm from './EntryForm';
 
 const EntryList = ({list, onDelete}) => {
-    const lists = list.map(l => <Entry key={l.id} onDelete={onDelete} {...l}/>);
+    const lists = list.map(l => <EntryForm key={l.id} onDelete={onDelete} entry={l}/>);
     return (<List list={lists} name="entry-list"/>);
 }
 

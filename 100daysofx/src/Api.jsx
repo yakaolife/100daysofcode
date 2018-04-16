@@ -6,11 +6,9 @@ const getEntries = () => {
 }
 
 const newEntry = (entry) => {
-    const body = JSON.stringify(entry);
-    console.log("newEntry: body:", body);
     return fetch("/api/new_entry", {
         method: "POST",
-        body: body,
+        body: JSON.stringify(entry),
         headers: {
             "content-type": "application/json",
             "Accept" : "application/json",

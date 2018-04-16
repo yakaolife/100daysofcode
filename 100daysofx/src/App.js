@@ -18,6 +18,7 @@ class App extends Component {
 
   componentDidMount() {
     document.title = "100 days of _";
+    console.log("App componentDidMount");
     this.getEntries();
   }
 
@@ -38,23 +39,22 @@ class App extends Component {
   }
 
   onSubmit(entry) {
-    console.log("onSubmit");
-    Api.newEntry(entry).then(response => response.json())
-    .then(response => {
-      debugger
-      console.log("response:", response);
-      // if (response.status === 500) {
-      //   //error
-      // } else {
-      //   debugger
-      // }
-      //check for errors
-      // clean up the entry form
-      // Get id and add it back?
-    }).catch(error => console.log("error: ", error));
+    if(entry.id){
+      console.log("Update entry");
+      Api.updateEntry(entry).then(response => response.json())
+      .then(response => {
+        console.log("response: ", response);
+        this.getEntries();
+      }).catch(error => console.log("error:", error)); 
+    } else {
+      Api.newEntry(entry).then(response => response.json())
+      .then(response => {
+        this.getEntries();
+      }).catch(error => console.log("error: ", error));
+    }
+   
+    return false;
   }
-
-  // onEdit
 
   render() {
 
@@ -62,7 +62,7 @@ class App extends Component {
       <div className="App">
         <EntryForm onSubmit={this.onSubmit} />
         <TitleList list={this.state.entries} />
-        <EntryList list={this.state.entries} onDelete={this.onDelete}/>
+        <EntryList list={this.state.entries} onSubmit={this.onSubmit} onDelete={this.onDelete}/>
         {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
