@@ -1,4 +1,6 @@
-import React from 'react';
+import React from "react";
+import "./EntryForm.css";
+import RichTextEditor from "react-rte";
 
 class EntryForm extends React.Component {
     constructor(props) {
@@ -10,6 +12,7 @@ class EntryForm extends React.Component {
             title: "",
             content: "",   
             editMode: true,
+            value: RichTextEditor.createEmptyValue(),
         };
     }
 
@@ -35,6 +38,11 @@ class EntryForm extends React.Component {
         });
     }
 
+    onEditorChange(value) {
+        this.setState({value});
+    }
+
+
     onEdit() {
         this.setState({ editMode: true });
     }
@@ -42,7 +50,8 @@ class EntryForm extends React.Component {
     onSubmit() {
         const { onSubmit } = this.props;
         const { id } = this.state;
-        debugger
+        // for rich text
+        this.setState({ content: this.state.value.toString('html')});
         onSubmit(this.state);
         if (id) {
             this.setState({ editMode: false });
@@ -64,8 +73,8 @@ class EntryForm extends React.Component {
                 <div className="entry">
                     <div className="entry-body">
                         {date}
-                        <h1>{title}</h1>
-                        <p>{content}</p>
+                        <h1 className="entry-title">{title}</h1>
+                        <p className="entry-content">{content}</p>
                         <button onClick={(e) => onDelete(id)}>Delete</button>
                         <button onClick={this.onEdit}>Edit</button>
                     </div>
@@ -75,9 +84,17 @@ class EntryForm extends React.Component {
         return (
             <div className="entry-form">
                 <input type="text" name="title" placeholder="title" value={this.state.title} onChange={this.onChange}/>
-                <textarea name="content" value={this.state.content} onChange={this.onChange}/>
+                <RichTextEditor
+                    value={this.state.value}
+                    onChange={this.onEditorChange}
+                />
                 <input type="button" value="Post" onClick={this.onSubmit}/>
             </div>
+            // <div className="entry-form">
+            //     <input type="text" name="title" placeholder="title" value={this.state.title} onChange={this.onChange}/>
+            //     <textarea name="content" value={this.state.content} onChange={this.onChange}/>
+            //     <input type="button" value="Post" onClick={this.onSubmit}/>
+            // </div>
         );
     }
 }
