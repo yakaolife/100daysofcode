@@ -58,17 +58,19 @@ class EntryForm extends React.Component {
         const { onSubmit } = this.props;
         const { id } = this.state;
         // for rich text
-        this.setState({ content: this.state.value.toString('html')});
-        onSubmit(this.state);
-        if (id) {
-            this.setState({ editMode: false });
-        } else {
-            //clear form
-            this.setState({
-                title: "",
-                content: "",
-            })
-        }
+        this.setState({ content: this.state.value.toString('html') }, () => {
+            debugger
+            onSubmit(this.state);
+            if (id) {
+                this.setState({ editMode: false });
+            } else {
+                //clear form
+                this.setState({
+                    title: "",
+                    content: "",
+                })
+            }
+        });
     }
 
     render() {
@@ -81,7 +83,7 @@ class EntryForm extends React.Component {
                     <div className="entry-body">
                         {date}
                         <h1 className="entry-title">{title}</h1>
-                        <p className="entry-content">{content}</p>
+                        <p className="entry-content" dangerouslySetInnerHTML={{__html: content}}></p>
                         <button onClick={(e) => onDelete(id)}>Delete</button>
                         <button onClick={this.onEdit}>Edit</button>
                     </div>
@@ -100,7 +102,7 @@ class EntryForm extends React.Component {
               {label: 'UL', style: 'unordered-list-item'},
               {label: 'OL', style: 'ordered-list-item'},
               {label: 'Blockquote', style: 'blockquote'},
-              {label: 'Code-block', style: 'code'}
+              {label: 'Codeblock', style: 'code'}
             ]
         };
 
