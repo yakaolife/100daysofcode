@@ -7,6 +7,7 @@ class EntryForm extends React.Component {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.onCancel = this.onCancel.bind(this);
         this.onEdit = this.onEdit.bind(this);
         this.onEditorChange = this.onEditorChange.bind(this);
         this.state = {
@@ -37,6 +38,10 @@ class EntryForm extends React.Component {
         this.setState({
             [event.target.name] : event.target.value,
         });
+    }
+
+    onCancel() {
+        this.setState({editMode: false});
     }
 
     onEditorChange(value) {
@@ -108,6 +113,7 @@ class EntryForm extends React.Component {
                     onChange={this.onEditorChange}
                 />
                 <input type="button" value="Post" onClick={this.onSubmit}/>
+                <input type="button" value="Cancel" onClick={this.onCancel}/>
             </div>
             // <div className="entry-form">
             //     <input type="text" name="title" placeholder="title" value={this.state.title} onChange={this.onChange}/>
