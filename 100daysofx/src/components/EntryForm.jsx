@@ -8,6 +8,7 @@ class EntryForm extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onEdit = this.onEdit.bind(this);
+        this.onEditorChange = this.onEditorChange.bind(this);
         this.state = {
             title: "",
             content: "",   
@@ -44,7 +45,8 @@ class EntryForm extends React.Component {
 
 
     onEdit() {
-        this.setState({ editMode: true });
+        const value = RichTextEditor.createValueFromString(this.state.content, 'html');
+        this.setState({ editMode: true, value });
     }
 
     onSubmit() {
@@ -81,10 +83,27 @@ class EntryForm extends React.Component {
                 </div>);
         }
 
+        // toolbar config
+        const toolbarConfig = {
+            display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'HISTORY_BUTTONS'],
+            INLINE_STYLE_BUTTONS: [
+              {label: 'Bold', style: 'BOLD', className: 'custom-css-class'},
+              {label: 'Italic', style: 'ITALIC'},
+              {label: 'Underline', style: 'UNDERLINE'}
+            ],
+            BLOCK_TYPE_BUTTONS: [
+              {label: 'UL', style: 'unordered-list-item'},
+              {label: 'OL', style: 'ordered-list-item'},
+              {label: 'Blockquote', style: 'blockquote'},
+              {label: 'Code-block', style: 'code'}
+            ]
+        };
+
         return (
             <div className="entry-form">
                 <input type="text" name="title" placeholder="title" value={this.state.title} onChange={this.onChange}/>
                 <RichTextEditor
+                    toolbarConfig={toolbarConfig}
                     value={this.state.value}
                     onChange={this.onEditorChange}
                 />
