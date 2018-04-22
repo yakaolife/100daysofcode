@@ -3,7 +3,6 @@ import "./Header.css";
 import _ from 'lodash';
 
 const DELTA = 5;
-// const navbarHeight = document.getElementById("header").offsetHeight;
 
 export default class Header extends React.Component{
     constructor(props) {
@@ -29,26 +28,17 @@ export default class Header extends React.Component{
     }
 
     handleScroll(event) {
-        // this.setState({
-        //     didScroll: true
-        // });
-        console.log("handleScroll");
         _.throttle(this.hasScrolled(), 250);
     }
 
     hasScrolled() {
         const st = window.scrollY;
-        // console.log("hasScrolled");
-        console.log("st: ", st, "lastScrollTop: ", this.state.lastScrollTop);
-
         if (!this.navbarHeight) {
             return;
         }
-        console.log("Scroll:", Math.abs(this.state.lastScrollTop - st));
         // Make sure they scroll more than delta
         if(Math.abs(this.state.lastScrollTop - st) <= DELTA)
             return;
-
 
         // If they scrolled down and are past the navbar, add class .nav-up.
         // This is necessary so you never see what is "behind" the navbar.
@@ -56,10 +46,6 @@ export default class Header extends React.Component{
             // Scroll Down
             this.hideHeader();
         } else {
-            // Scroll Up
-            // if(st + window.outerHeight < this.getDocHeight()) {
-            //   this.showHeader();
-            // }
             if(st < this.getDocHeight()) {
               this.showHeader();
             }
@@ -68,12 +54,9 @@ export default class Header extends React.Component{
         this.setState({
             lastScrollTop: st
         });
-        console.log("lastScrollTop: ", this.state.lastScrollTop);
-
     }
 
     hideHeader() {
-        console.log("hideHeader");
         this.setState({
             navClass: 'nav-up'
         })
