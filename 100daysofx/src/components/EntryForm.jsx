@@ -19,10 +19,8 @@ class EntryForm extends React.Component {
     }
 
     componentDidMount() {
-        console.log("componentDidMount");
         const { entry } = this.props;
         if (entry) {
-            console.log("has entry!", entry);
             const { id, title, content, date } = entry;
             this.setState({
                 id: id,
@@ -59,7 +57,6 @@ class EntryForm extends React.Component {
         const { id } = this.state;
         // for rich text
         this.setState({ content: this.state.value.toString('html') }, () => {
-            debugger
             onSubmit(this.state);
             if (id) {
                 this.setState({ editMode: false });

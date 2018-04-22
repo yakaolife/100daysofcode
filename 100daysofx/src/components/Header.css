@@ -1,0 +1,19 @@
+body {
+    padding-top: 70px;
+}
+
+.nav-down {
+    background: red;
+    height: 70px;
+    position: fixed;
+    top: 0;
+    transition: top 0.1s ease-in-out;
+    width: 100%;
+    border-bottom: 1px solid darken(white, 10%);
+    box-sizing: content-box;
+    line-height: 70px;
+}
+
+.nav-up {
+    top: -(70px + 1px + 5px);
+}

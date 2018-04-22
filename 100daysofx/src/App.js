@@ -4,6 +4,7 @@ import Api from "./Api";
 import EntryList from "./components/EntryList";
 import TitleList from "./components/TitleList";
 import EntryForm from "./components/EntryForm";
+import Header from "./components/Header";
 
 class App extends Component {
   constructor(props) {
@@ -60,6 +61,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <Header />
         <EntryForm onSubmit={this.onSubmit} />
         <TitleList list={this.state.entries} />
         <EntryList list={this.state.entries} onSubmit={this.onSubmit} onDelete={this.onDelete}/>
