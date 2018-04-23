@@ -17,12 +17,23 @@ header {
   width: 100%;
   border-bottom: 1px solid #cccccc;
   box-sizing: content-box;
-  line-height: 70px;
   transition: top 0.3s ease-in-out;
   z-index: 100; }
-  header .center {
-    flex: 3;
-    order: 2;
-    position: relative; }
+  header .header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: var(--header-heigth); }
+    header .header-container .left {
+      order: 0; }
+    header .header-container .center {
+      order: 1;
+      align-self: center;
+      position: relative;
+      font-size: 24px; }
+    header .header-container .right {
+      order: 2;
+      align-self: right;
+      padding: 20px; }
 
 /*# sourceMappingURL=Header.css.map */

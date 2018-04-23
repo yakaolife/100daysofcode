@@ -114,11 +114,6 @@ class EntryForm extends React.Component {
                 <input type="button" value="Post" onClick={this.onSubmit}/>
                 <input type="button" value="Cancel" onClick={this.onCancel}/>
             </div>
-            // <div className="entry-form">
-            //     <input type="text" name="title" placeholder="title" value={this.state.title} onChange={this.onChange}/>
-            //     <textarea name="content" value={this.state.content} onChange={this.onChange}/>
-            //     <input type="button" value="Post" onClick={this.onSubmit}/>
-            // </div>
         );
     }
 }

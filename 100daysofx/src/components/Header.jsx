@@ -1,6 +1,7 @@
 import React from 'react';
 import "../styles/css/Header.css";
 import _ from 'lodash';
+import new_post_icon from "../assets/add-circle-icon.svg";
 
 const DELTA = 5;
 
@@ -85,7 +86,13 @@ export default class Header extends React.Component{
     render() {
         return (
             <header id="navbar" className={this.state.navClass} ref={this.getHeight}>
-                <div className="center">This is the header text!</div>
+                <div className="header-container">
+                    <div className="left"></div>
+                    <div className="center">100 days of _</div>
+                    <div className="right">
+                        <input type="image" src={new_post_icon} className="new-post" />
+                    </div>
+                </div>
             </header>
         );
 
