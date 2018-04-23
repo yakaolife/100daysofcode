@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Header.css";
+import "../styles/css/Header.css";
 import _ from 'lodash';
 
 const DELTA = 5;

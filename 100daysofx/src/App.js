@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./styles/css/App.css";
 import Api from "./Api";
 import EntryList from "./components/EntryList";
 import TitleList from "./components/TitleList";
