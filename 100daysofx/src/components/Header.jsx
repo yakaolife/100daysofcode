@@ -85,7 +85,7 @@ export default class Header extends React.Component{
     render() {
         return (
             <header id="navbar" className={this.state.navClass} ref={this.getHeight}>
-                <div className="header-title">This is the header!</div>
+                <div className="center">This is the header text!</div>
             </header>
         );
 
