@@ -1,5 +1,5 @@
 import React from "react";
-import "./EntryForm.css";
+import "../styles/css/EntryForm.css";
 import RichTextEditor from "react-rte";
 
 class EntryForm extends React.Component {
@@ -39,7 +39,12 @@ class EntryForm extends React.Component {
     }
 
     onCancel() {
-        this.setState({editMode: false});
+        const { onClose } = this.props;
+        if (onClose) {
+            onClose();
+        } else {
+            this.setState({editMode: false});
+        }
     }
 
     onEditorChange(value) {
@@ -53,13 +58,14 @@ class EntryForm extends React.Component {
     }
 
     onSubmit() {
-        const { onSubmit } = this.props;
+        const { onSubmit, onClose } = this.props;
         const { id } = this.state;
         // for rich text
         this.setState({ content: this.state.value.toString('html') }, () => {
             onSubmit(this.state);
             if (id) {
                 this.setState({ editMode: false });
+                onClose();
             } else {
                 //clear form
                 this.setState({
@@ -105,7 +111,7 @@ class EntryForm extends React.Component {
 
         return (
             <div className="entry-form">
-                <input type="text" name="title" placeholder="title" value={this.state.title} onChange={this.onChange}/>
+                <input className="entry-title-input" type="text" name="title" placeholder="title" value={this.state.title} onChange={this.onChange}/>
                 <RichTextEditor
                     toolbarConfig={toolbarConfig}
                     value={this.state.value}

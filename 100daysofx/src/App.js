@@ -3,18 +3,22 @@ import "./styles/css/App.css";
 import Api from "./Api";
 import EntryList from "./components/EntryList";
 import TitleList from "./components/TitleList";
-import EntryForm from "./components/EntryForm";
+import NewPost from "./components/NewPost";
 import Header from "./components/Header";
+import Modal from "./components/Modal";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      entries: []
+      entries: [],
+      showNewPost: false,
     };
     this.getEntries = this.getEntries.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.newPost = this.newPost.bind(this);
+    this.closeNewPost = this.closeNewPost.bind(this);
   }
 
   componentDidMount() {
@@ -57,12 +61,30 @@ class App extends Component {
     return false;
   }
 
-  render() {
+  newPost() {
+    console.log("open");
+    this.setState({
+      showNewPost: true,
+    });
+  }
 
+  closeNewPost() {
+    console.log("close");
+    this.setState({
+      showNewPost: false,
+    })
+  }
+
+  render() {
     return (
       <div className="App">
-        <Header />
-        <EntryForm onSubmit={this.onSubmit} />
+        {
+          this.state.showNewPost && 
+          <Modal>
+            <NewPost onSubmit={this.onSubmit} onClose={this.closeNewPost}/>
+          </Modal>
+        }
+        <Header newPost={this.newPost}/>
         <TitleList list={this.state.entries} />
         <EntryList list={this.state.entries} onSubmit={this.onSubmit} onDelete={this.onDelete}/>
         {/* <header className="App-header">

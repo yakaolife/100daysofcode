@@ -1,5 +1,6 @@
 import React from 'react';
 import "../styles/css/Header.css";
+import NewPost from "./NewPost";
 import _ from 'lodash';
 import new_post_icon from "../assets/add-circle-icon.svg";
 
@@ -84,13 +85,14 @@ export default class Header extends React.Component{
     }
 
     render() {
+        const { newPost } = this.props;
         return (
             <header id="navbar" className={this.state.navClass} ref={this.getHeight}>
                 <div className="header-container">
                     <div className="left"></div>
                     <div className="center">100 days of _</div>
                     <div className="right">
-                        <input type="image" src={new_post_icon} className="new-post" />
+                        <input type="image" src={new_post_icon} className="new-post" onClick={newPost}/>
                     </div>
                 </div>
             </header>
